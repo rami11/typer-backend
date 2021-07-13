@@ -8,11 +8,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class TextController {
 
+    private final TextService textService;
+
     @Autowired
-    TextRepository textRepository;
+    public TextController(TextService textService) {
+        this.textService = textService;
+    }
 
     @GetMapping(path = "/text/random/{language_code}")
     public Text getText(@PathVariable(name = "language_code") String languageCode) {
-        return textRepository.getRandomText(languageCode);
+        return textService.getRandomText(languageCode);
     }
 }
